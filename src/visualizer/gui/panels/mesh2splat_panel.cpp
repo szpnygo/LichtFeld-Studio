@@ -153,7 +153,7 @@ namespace lfs::vis::gui::panels {
         widgets::HelpMarker(LOC(Mesh2Splat::TOOLTIP_MAX_RESOLUTION));
         ImGui::SetNextItemWidth(-1);
 
-        static const char* resolution_labels[] = {"128", "256", "512", "1024", "2048", "4096"};
+        static const char* resolution_labels[] = {"128", "256", "512", "1024", "2048", "4096", "8192", "16384"};
         reconvert |= ImGui::Combo("##max_resolution", &resolution_index_, resolution_labels, kResolutionOptionCount);
 
         ImGui::Spacing();

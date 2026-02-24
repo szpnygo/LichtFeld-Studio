@@ -554,7 +554,7 @@ class TrainingPanel(Panel):
                         if dataset_can_edit:
                             layout.push_item_width(-1)
                             changed, new_val = layout.input_int("##py_max_width", dataset.max_width, 80, 400)
-                            if changed and 0 < new_val <= 4096:
+                            if changed and 0 < new_val <= 16384:
                                 dataset.max_width = new_val
                             layout.pop_item_width()
                         else:
