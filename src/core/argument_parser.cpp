@@ -445,9 +445,6 @@ namespace {
                 if (width <= 0) {
                     return std::unexpected("ERROR: --max-width must be greather than 0");
                 }
-                if (width > 4096) {
-                    return std::unexpected("ERROR: --max-width cannot be higher than 4096");
-                }
             }
 
             if (tile_mode) {

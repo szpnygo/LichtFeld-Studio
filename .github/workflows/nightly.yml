@@ -5,13 +5,14 @@
 name: Nightly Build
 
 on:
-  schedule:
-    - cron: '0 1 * * *'  # 2 AM CET (1 AM UTC)
-  workflow_dispatch:      # Manual trigger
+  push:
+    branches: [tcode]
+    paths-ignore:
+      - "**.md"
+      - "docs/**"
 
 jobs:
   build-windows:
-    if: github.repository == 'MrNeRF/LichtFeld-Studio'
     runs-on: windows-2022
     env:
       VCPKG_ROOT: ${{ github.workspace }}\..\vcpkg
@@ -66,8 +67,8 @@ jobs:
           $date = Get-Date -Format "yyyy-MM-dd"
           $sha = git rev-parse --short HEAD
           cmake --install build --prefix dist
-          Compress-Archive -Path dist\* -DestinationPath "LichtFeld-Studio-windows-nightly-$date-$sha.zip"
-          echo "PACKAGE_NAME=LichtFeld-Studio-windows-nightly-$date-$sha.zip" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          Compress-Archive -Path dist\* -DestinationPath "LichtFeld-Studio-windows-nightly.zip"
+          echo "PACKAGE_NAME=LichtFeld-Studio-windows-nightly.zip" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -93,7 +94,7 @@ jobs:
           tag_name: nightly
           name: Nightly Build
           prerelease: true
-          files: LichtFeld-Studio-windows-nightly-*-*.zip
+          files: LichtFeld-Studio-windows-nightly.zip
           body: |
             Automated nightly build from `${{ github.sha }}`
 
